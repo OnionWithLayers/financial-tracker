@@ -88,6 +88,7 @@ ArrayList transaction = transactionReader.toString
             }
             br.close();
         } catch (Exception e) {
+            System.out.println("An error has occurred!");
             e.printStackTrace();
         }
 
