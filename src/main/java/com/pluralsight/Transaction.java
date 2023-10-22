@@ -58,4 +58,7 @@ public class Transaction {
         this.amount = amount;
     }
 
+   /* public String deposit(){
+        return "Date: " + date + " | Time: " + time;
+    }*/
 }

@@ -87,12 +87,15 @@ public class FinancialTracker {
             String userTime = scanner.nextLine().trim();
             LocalTime time = LocalTime.parse(userTime, TIME_FORMATTER);
 
-            System.out.println("The date and time of added deposit is: (DATE):" + DATE_FORMATTER.format(date) + " | (TIME): " + time);
+            String deposit = "Date: " + date + " | Time: " + time;
+//            System.out.println("The date and time of added deposit is: (DATE):" + DATE_FORMATTER.format(date) + " | (TIME): " + time);
         } catch(Exception yo){
             System.out.println("you did this wrong");
         }
 
+
     }
+
 
     private static void addPayment(Scanner scanner) {
         // This method should prompt the user to enter the date, time, vendor, and amount of a payment.
