@@ -9,10 +9,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 public class FinancialTracker {
 
@@ -73,7 +70,27 @@ public class FinancialTracker {
 ArrayList transaction = transactionReader.toString
 * line.split("\\|") to split the string into sections by each pipe
 * ArrayList<> (category) to make an ArrayList for each category
-* ArrayList<String>(vendor) = transaction(3); */
+* ArrayList<String>(vendor) = transaction(3);  <---- this makes an array for the vendor*/
+        String line;
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("transactions.csv"));
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split("\\|");
+                String date = (parts[0]);
+                LocalDate realDate = LocalDate.parse(date);
+                String time = parts[1];
+                LocalTime realTime = LocalTime.parse(time);
+                String description = parts[2];
+                String vendor = parts[3];
+                double amount = Double.parseDouble(parts[4]);
+                Transaction transaction = new Transaction(realDate, realTime, description, vendor, amount);
+                System.out.println(transaction);
+            }
+            br.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private static void addDeposit(Scanner scanner) {
@@ -92,16 +109,14 @@ ArrayList transaction = transactionReader.toString
             String userTime = scanner.nextLine().trim();
             LocalTime time = LocalTime.parse(userTime, TIME_FORMATTER);
 
-            deposit();
+
 //            System.out.println("The date and time of added deposit is: (DATE):" + DATE_FORMATTER.format(date) + " | (TIME): " + time);
-        } catch(Exception yo){
+        } catch (Exception yo) {
             System.out.println("you did this wrong");
         }
 
     }
-  public static void deposit(){
-        return "Date: " + date + " | Time: " + time;
-    }
+
 
     private static void addPayment(Scanner scanner) {
         // This method should prompt the user to enter the date, time, vendor, and amount of a payment.
