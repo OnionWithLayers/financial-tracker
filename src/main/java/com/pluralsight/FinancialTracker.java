@@ -69,13 +69,18 @@ public class FinancialTracker {
         // For example: 2023-04-29,13:45:00,Amazon,PAYMENT,29.99
         // After reading all the transactions, the file should be closed.
         // If any errors occur, an appropriate error message should be displayed.
-
+/*make transaction reader
+ArrayList transaction = transactionReader.toString
+* line.split("\\|") to split the string into sections by each pipe
+* ArrayList<> (category) to make an ArrayList for each category
+* ArrayList<String>(vendor) = transaction(3); */
     }
 
     private static void addDeposit(Scanner scanner) {
         // This method should prompt the user to enter the date, time, vendor, and amount of a deposit.
         // The user should enter the date and time in the following format: yyyy-MM-dd HH:mm:ss
         // The amount should be a positive number.
+
         // After validating the input, a new `Deposit` object should be created with the entered values.
         // The new deposit should be added to the `transactions` ArrayList.
         try {
@@ -87,15 +92,16 @@ public class FinancialTracker {
             String userTime = scanner.nextLine().trim();
             LocalTime time = LocalTime.parse(userTime, TIME_FORMATTER);
 
-            String deposit = "Date: " + date + " | Time: " + time;
+            deposit();
 //            System.out.println("The date and time of added deposit is: (DATE):" + DATE_FORMATTER.format(date) + " | (TIME): " + time);
         } catch(Exception yo){
             System.out.println("you did this wrong");
         }
 
-
     }
-
+  public static void deposit(){
+        return "Date: " + date + " | Time: " + time;
+    }
 
     private static void addPayment(Scanner scanner) {
         // This method should prompt the user to enter the date, time, vendor, and amount of a payment.
