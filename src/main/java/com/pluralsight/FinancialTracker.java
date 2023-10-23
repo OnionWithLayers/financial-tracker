@@ -84,15 +84,16 @@ ArrayList transaction = transactionReader.toString
                 String description = parts[2];
                 String vendor = parts[3];
                 double amount = Double.parseDouble(parts[4]);
+                Transaction newTransaction = new Transaction(realDate, realTime, description, vendor, amount);
                 //this changes arrays to arrayLists
-                Arrays.asList(realDate, realTime, description, vendor, amount);
-                transactions.add(new Transaction(realDate, realTime, description, vendor, amount));
+//                Arrays.asList(realDate, realTime, description, vendor, amount);
+                transactions.add(newTransaction);
                 System.out.println(transactions);
             }
             br.close();
         } catch (Exception e) {
             System.out.println("An error has occurred!");
-            e.printStackTrace();
+//            e.printStackTrace();
         }
 
     }
