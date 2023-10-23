@@ -124,18 +124,21 @@ ArrayList transaction = transactionReader.toString
             scanner.nextLine();
 
             //unsure how to add a new transaction to the list
-            Transaction transaction = new Transaction(date, time, vendor, description, depositAmount);
+            Transaction transaction = new Transaction(date, time, description, vendor, depositAmount);
             transactions.add(transaction);
             //MAKE BUFFERWRITER
             try {
                 FileWriter fileWriter = new FileWriter("transactions.csv");
                 BufferedWriter buffWriter = new BufferedWriter(fileWriter);
+                //turn the transaction to a string, so I can add it to the file
+                String addedTransaction = transaction.toString();
                 //write into the file
-                buffWriter.transaction;
+                buffWriter.append(addedTransaction);
                 //close the writer so the info saves
                 buffWriter.close();
             } catch (IOException e) {
                 System.out.println("Failed to save data");
+                e.printStackTrace();
             }
 
 
