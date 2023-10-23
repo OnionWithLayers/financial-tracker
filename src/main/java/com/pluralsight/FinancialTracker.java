@@ -57,6 +57,7 @@ public class FinancialTracker {
         scanner.close();
     }
 
+    //Have Raymond check this
     public static void loadTransactions(String fileName) {
         // This method should load transactions from a file with the given file name.
         // If the file does not exist, it should be created.
@@ -96,6 +97,7 @@ ArrayList transaction = transactionReader.toString
 
     }
 
+    //have Raymond check this
     private static void addDeposit(Scanner scanner) {
         // This method should prompt the user to enter the date, time, vendor, and amount of a deposit.
         // The user should enter the date and time in the following format: yyyy-MM-dd HH:mm:ss
@@ -139,41 +141,47 @@ ArrayList transaction = transactionReader.toString
 
     }
 
-
+//Have Raymond check this
     private static void addPayment(Scanner scanner) {
         // This method should prompt the user to enter the date, time, vendor, and amount of a payment.
         // The user should enter the date and time in the following format: yyyy-MM-dd HH:mm:ss
         // The amount should be a positive number.
         // After validating the input, a new `Payment` object should be created with the entered values.
         // The new payment should be added to the `transactions` ArrayList.
-        System.out.println("So you're adding a payment, huh. Well make sure to follow the correct format " +
-                "as you enter the following information");
+        try{
+            System.out.println("So you're adding a payment, huh. Well make sure to follow the correct format " +
+                    "as you enter the following information");
 
-        System.out.println("Enter the date (yyyy-MM-dd): ");
-        String userDate = scanner.nextLine().trim();
-        LocalDate dateOfPayment = LocalDate.parse(userDate, DATE_FORMATTER);
+            System.out.println("Enter the date (yyyy-MM-dd): ");
+            String userDate = scanner.nextLine().trim();
+            LocalDate dateOfPayment = LocalDate.parse(userDate, DATE_FORMATTER);
 
-        System.out.println("Enter the time (HH:mm:ss): ");
-        String userTime = scanner.nextLine().trim();
-        LocalTime timeOfPayment = LocalTime.parse(userTime, TIME_FORMATTER);
+            System.out.println("Enter the time (HH:mm:ss): ");
+            String userTime = scanner.nextLine().trim();
+            LocalTime timeOfPayment = LocalTime.parse(userTime, TIME_FORMATTER);
 
-        System.out.println("Enter the description: ");
-        String descriptionOfPayment = scanner.nextLine();
+            System.out.println("Enter the description: ");
+            String descriptionOfPayment = scanner.nextLine();
 
-        System.out.println("Enter the vendor: ");
-        String vendorOfPayment = scanner.nextLine().trim();
+            System.out.println("Enter the vendor: ");
+            String vendorOfPayment = scanner.nextLine().trim();
 
-        System.out.println("Enter the amount of deposit: ");
-        double paymentAmount = scanner.nextDouble();
-        scanner.nextLine();
+            System.out.println("Enter the amount of deposit: ");
+            double paymentAmount = scanner.nextDouble();
+            scanner.nextLine();
 
-        Transaction paymentTransaction = new Transaction(dateOfPayment, timeOfPayment, descriptionOfPayment, vendorOfPayment, paymentAmount);
-        transactions.add(paymentTransaction);
+            Transaction paymentTransaction = new Transaction(dateOfPayment, timeOfPayment, descriptionOfPayment, vendorOfPayment, paymentAmount);
+            transactions.add(paymentTransaction);
 
-        System.out.println("Payment successfully made on: " + paymentTransaction.getDate() + " | Time: " + paymentTransaction.getTime()
-                + " | Vendor: " + paymentTransaction.getVendor() + " | Payment Amount: " + paymentTransaction.getAmount());
+            System.out.println("Payment successfully made on: " + paymentTransaction.getDate() + " | Time: " + paymentTransaction.getTime()
+                    + " | Vendor: " + paymentTransaction.getVendor() + " | Payment Amount: " + paymentTransaction.getAmount());
+        }catch (Exception e){
+            System.out.println("You input some information incorrectly. Please be careful next time and try again\n");
+        }
+
     }
 
+//no need to check this one
     private static void ledgerMenu(Scanner scanner) {
         boolean running = true;
         while (running) {
@@ -209,9 +217,19 @@ ArrayList transaction = transactionReader.toString
         }
     }
 
+    //In-progress
     private static void displayLedger() {
         // This method should display a table of all transactions in the `transactions` ArrayList.
         // The table should have columns for date, time, vendor, type, and amount.
+        try{
+            transactions.toString();
+         /*   for (int i = 0; i < transactions.size(); i++){
+                System.out.println(transactions.get(i).toString());
+            }*/
+        }catch(Exception e){
+            System.out.println("An error has occurred!");
+        }
+
     }
 
     private static void displayDeposits() {
