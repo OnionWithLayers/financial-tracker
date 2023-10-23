@@ -28,7 +28,7 @@ public class FinancialTracker {
         while (running) {
             System.out.println("Welcome to TransactionApp");
             System.out.println("Choose an option:");
-            System.out.println("D) Add Deposit");
+            System.out.println("A) Add Deposit");
             System.out.println("P) Make Payment (Debit)");
             System.out.println("L) Ledger");
             System.out.println("X) Exit");
@@ -36,7 +36,7 @@ public class FinancialTracker {
             String input = scanner.nextLine().trim();
 
             switch (input.toUpperCase()) {
-                case "D":
+                case "A":
                     addDeposit(scanner);
                     break;
                 case "P":
@@ -85,8 +85,8 @@ ArrayList transaction = transactionReader.toString
                 double amount = Double.parseDouble(parts[4]);
                 //this changes arrays to arrayLists
                 Arrays.asList(realDate, realTime, description, vendor, amount);
-                Transaction transaction = new Transaction(realDate, realTime, description, vendor, amount);
-                System.out.println(transaction);
+                transactions.add(new Transaction(realDate, realTime, description, vendor, amount));
+                System.out.println(transactions);
             }
             br.close();
         } catch (Exception e) {
@@ -104,6 +104,7 @@ ArrayList transaction = transactionReader.toString
         // After validating the input, a new `Deposit` object should be created with the entered values.
         // The new deposit should be added to the `transactions` ArrayList.
         try {
+            System.out.println("Please be careful to follow the format correctly\n");
             System.out.println("Enter the date (yyyy-MM-dd): ");
             String userDate = scanner.nextLine().trim();
             LocalDate date = LocalDate.parse(userDate, DATE_FORMATTER);
@@ -122,13 +123,18 @@ ArrayList transaction = transactionReader.toString
             double depositAmount = scanner.nextDouble();
             scanner.nextLine();
 
-            //unsure if this adds a new transaction to the list
+            //unsure how to add a new transaction to the list
             Transaction transaction = new Transaction(date, time, vendor, description, depositAmount);
+            transactions.add(transaction);
+      /*      transaction.toString();
+            transactions.toString();*/
 
+            System.out.println("Completed transaction: " + transaction.getDate() + ", " + transaction.getTime()
+             + ", " + transaction.getVendor() + ", " + transaction.getDescription() + ", " + transaction.getAmount());
 
 //            System.out.println("The date and time of added deposit is: (DATE):" + DATE_FORMATTER.format(date) + " | (TIME): " + time);
         } catch (Exception yo) {
-            System.out.println("you did this wrong");
+            System.out.println("You did this wrong.\nPlease start over.\n");
         }
 
     }
@@ -140,6 +146,32 @@ ArrayList transaction = transactionReader.toString
         // The amount should be a positive number.
         // After validating the input, a new `Payment` object should be created with the entered values.
         // The new payment should be added to the `transactions` ArrayList.
+        System.out.println("So you're adding a payment, huh. Well make sure to follow the correct format " +
+                "as you enter the following information");
+
+        System.out.println("Enter the date (yyyy-MM-dd): ");
+        String userDate = scanner.nextLine().trim();
+        LocalDate dateOfPayment = LocalDate.parse(userDate, DATE_FORMATTER);
+
+        System.out.println("Enter the time (HH:mm:ss): ");
+        String userTime = scanner.nextLine().trim();
+        LocalTime timeOfPayment = LocalTime.parse(userTime, TIME_FORMATTER);
+
+        System.out.println("Enter the description: ");
+        String descriptionOfPayment = scanner.nextLine();
+
+        System.out.println("Enter the vendor: ");
+        String vendorOfPayment = scanner.nextLine().trim();
+
+        System.out.println("Enter the amount of deposit: ");
+        double paymentAmount = scanner.nextDouble();
+        scanner.nextLine();
+
+        Transaction paymentTransaction = new Transaction(dateOfPayment, timeOfPayment, descriptionOfPayment, vendorOfPayment, paymentAmount);
+        transactions.add(paymentTransaction);
+
+        System.out.println("Payment successfully made on: " + paymentTransaction.getDate() + " | Time: " + paymentTransaction.getTime()
+                + " | Vendor: " + paymentTransaction.getVendor() + " | Payment Amount: " + paymentTransaction.getAmount());
     }
 
     private static void ledgerMenu(Scanner scanner) {
