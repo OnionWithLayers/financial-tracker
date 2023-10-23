@@ -110,6 +110,18 @@ ArrayList transaction = transactionReader.toString
             String userTime = scanner.nextLine().trim();
             LocalTime time = LocalTime.parse(userTime, TIME_FORMATTER);
 
+            System.out.println("Enter the description: ");
+            String description = scanner.nextLine();
+
+            System.out.println("Enter the vendor: ");
+            String vendor = scanner.nextLine().trim();
+
+            System.out.println("Enter the amount of deposit: ");
+            double depositAmount = scanner.nextDouble();
+            scanner.nextLine();
+
+            Transaction transaction = new Transaction(date, time, vendor, description, depositAmount);
+            
 
 //            System.out.println("The date and time of added deposit is: (DATE):" + DATE_FORMATTER.format(date) + " | (TIME): " + time);
         } catch (Exception yo) {
