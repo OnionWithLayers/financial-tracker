@@ -179,7 +179,7 @@ ArrayList transaction = transactionReader.toString
             scanner.nextLine();
 
             Transaction paymentTransaction = new Transaction(dateOfPayment, timeOfPayment, descriptionOfPayment,
-                                                                    vendorOfPayment, paymentAmount);
+                    vendorOfPayment, paymentAmount);
             transactions.add(paymentTransaction);
 
             //BUFFER READER NEEDED
@@ -240,31 +240,35 @@ ArrayList transaction = transactionReader.toString
         }
     }
 
-    //In-progress
-    //this is just displaying "ledger"
+    //check-ready
     private static void displayLedger() {
         // This method should display a table of all transactions in the `transactions` ArrayList.
         // The table should have columns for date, time, vendor, type, and amount.
-        try {
-            for (int i = 0; i < transactions.size(); i++) {
-                System.out.println(transactions.get(i).toString());
-            }
-        } catch (Exception e) {
-            System.out.println("An error has occurred!");
+        for (int i = 0; i < transactions.size(); i++) {
+            System.out.println(transactions.get(i).toString());
         }
-
     }
 
     private static void displayDeposits() {
         // This method should display a table of all deposits in the `transactions` ArrayList.
         // The table should have columns for date, time, vendor, and amount
         // for loop --> if statement if the amount is positive, print out.
+        for (int i = 0; i < transactions.size(); i++) {
+            if (transactions.get(i).getAmount() > 0) {
+                System.out.println(transactions.get(i).toString());
+            }
+        }
     }
 
     private static void displayPayments() {
         // This method should display a table of all payments in the `transactions` ArrayList.
         // The table should have columns for date, time, vendor, and amount.
         // for loop --> print out if amount is negative
+        for (int i = 0; i < transactions.size(); i++) {
+            if (transactions.get(i).getAmount() < 0) {
+                System.out.println(transactions.get(i).toString());
+            }
+        }
     }
 
     private static void reportsMenu(Scanner scanner) {
