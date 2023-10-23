@@ -133,7 +133,8 @@ ArrayList transaction = transactionReader.toString
                 //writes in the file
                 BufferedWriter buffWriter = new BufferedWriter(fileWriter);
                 //turn the transaction to a string, so I can add it to the file
-                String addedTransaction =  "\n" + transaction.getDate() + "|" + transaction.getTime() + "|" + transaction.getDescription() + "|" + transaction.getVendor() + "|" + transaction.getAmount() ;
+                String addedTransaction = "\n" + transaction.getDate() + "|" + transaction.getTime() + "|"
+                        + transaction.getDescription() + "|" + transaction.getVendor() + "|" + transaction.getAmount();
                 //write into the file
                 buffWriter.write(addedTransaction);
                 //close the writer so the info saves
@@ -142,13 +143,6 @@ ArrayList transaction = transactionReader.toString
                 System.out.println("Failed to save data");
                 e.printStackTrace();
             }
-
-
-          /* this isnt needed
-           System.out.println("Completed transaction: " + transaction.getDate() + ", " + transaction.getTime()
-             + ", " + transaction.getVendor() + ", " + transaction.getDescription() + ", " + transaction.getAmount());*/
-
-
         } catch (Exception yo) {
             System.out.println("You did this wrong.\nPlease start over.\n");
         }
@@ -184,19 +178,30 @@ ArrayList transaction = transactionReader.toString
             double paymentAmount = scanner.nextDouble();
             scanner.nextLine();
 
-            Transaction paymentTransaction = new Transaction(dateOfPayment, timeOfPayment, descriptionOfPayment, vendorOfPayment, paymentAmount);
+            Transaction paymentTransaction = new Transaction(dateOfPayment, timeOfPayment, descriptionOfPayment,
+                                                                    vendorOfPayment, paymentAmount);
             transactions.add(paymentTransaction);
 
-
             //BUFFER READER NEEDED
-
-          /* not needed
-           System.out.println("Payment successfully made on: " + paymentTransaction.getDate() + " | Time: " + paymentTransaction.getTime()
-                    + " | Vendor: " + paymentTransaction.getVendor() + " | Payment Amount: " + paymentTransaction.getAmount());*/
+            try {
+                //accesses the file "transactions.csv"        append: true makes it so you can on to the file, if nothing is there, it'll default to false and rewirte the file
+                FileWriter fileWriter = new FileWriter("transactions.csv", true);
+                //writes in the file
+                BufferedWriter buffWriter = new BufferedWriter(fileWriter);
+                //turn the transaction to a string, so I can add it to the file
+                String addedTransaction = "\n" + paymentTransaction.getDate() + "|" + paymentTransaction.getTime() + "|"
+                        + paymentTransaction.getDescription() + "|" + paymentTransaction.getVendor() + "|" + paymentTransaction.getAmount();
+                //write into the file
+                buffWriter.write(addedTransaction);
+                //close the writer so the info saves
+                buffWriter.close();
+            } catch (IOException e) {
+                System.out.println("Failed to save data");
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             System.out.println("You input some information incorrectly. Please be careful next time and try again\n");
         }
-
     }
 
     //no need to check this one
