@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 public class FinancialTracker {
 
@@ -57,7 +58,7 @@ public class FinancialTracker {
         scanner.close();
     }
 
-    //Have Raymond check this
+    //Raymond checked this good
     public static void loadTransactions(String fileName) {
         // This method should load transactions from a file with the given file name.
         // If the file does not exist, it should be created.
@@ -90,7 +91,6 @@ ArrayList transaction = transactionReader.toString
             br.close();
         } catch (Exception e) {
             System.out.println("An error has occurred!");
-//            e.printStackTrace();
         }
 
     }
@@ -127,6 +127,16 @@ ArrayList transaction = transactionReader.toString
             Transaction transaction = new Transaction(date, time, vendor, description, depositAmount);
             transactions.add(transaction);
             //MAKE BUFFERWRITER
+            try {
+                FileWriter fileWriter = new FileWriter("transactions.csv");
+                BufferedWriter buffWriter = new BufferedWriter(fileWriter);
+                //write into the file
+                buffWriter.transaction;
+                //close the writer so the info saves
+                buffWriter.close();
+            } catch (IOException e) {
+                System.out.println("Failed to save data");
+            }
 
 
           /* this isnt needed
@@ -140,14 +150,14 @@ ArrayList transaction = transactionReader.toString
 
     }
 
-//Have Raymond check this
+    //Have Raymond check this
     private static void addPayment(Scanner scanner) {
         // This method should prompt the user to enter the date, time, vendor, and amount of a payment.
         // The user should enter the date and time in the following format: yyyy-MM-dd HH:mm:ss
         // The amount should be a positive number.
         // After validating the input, a new `Payment` object should be created with the entered values.
         // The new payment should be added to the `transactions` ArrayList.
-        try{
+        try {
             System.out.println("So you're adding a payment, huh. Well make sure to follow the correct format " +
                     "as you enter the following information");
 
@@ -178,13 +188,13 @@ ArrayList transaction = transactionReader.toString
           /* not needed
            System.out.println("Payment successfully made on: " + paymentTransaction.getDate() + " | Time: " + paymentTransaction.getTime()
                     + " | Vendor: " + paymentTransaction.getVendor() + " | Payment Amount: " + paymentTransaction.getAmount());*/
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("You input some information incorrectly. Please be careful next time and try again\n");
         }
 
     }
 
-//no need to check this one
+    //no need to check this one
     private static void ledgerMenu(Scanner scanner) {
         boolean running = true;
         while (running) {
@@ -225,11 +235,11 @@ ArrayList transaction = transactionReader.toString
     private static void displayLedger() {
         // This method should display a table of all transactions in the `transactions` ArrayList.
         // The table should have columns for date, time, vendor, type, and amount.
-        try{
-          for (int i = 0; i < transactions.size(); i++){
+        try {
+            for (int i = 0; i < transactions.size(); i++) {
                 System.out.println(transactions.get(i).toString());
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("An error has occurred!");
         }
 
