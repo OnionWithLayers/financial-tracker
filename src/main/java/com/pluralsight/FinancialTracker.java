@@ -289,9 +289,12 @@ ArrayList transaction = transactionReader.toString
                 case "1":
                     // Generate a report for all transactions within the current month,
                     // including the date, vendor, and amount for each transaction.
+                    filterTransactionsByDate(startDate, endDate);
+                    break;
                 case "2":
                     // Generate a report for all transactions within the previous month,
                     // including the date, vendor, and amount for each transaction.
+
                 case "3":
                     // Generate a report for all transactions within the current year,
                     // including the date, vendor, and amount for each transaction.
@@ -318,6 +321,9 @@ ArrayList transaction = transactionReader.toString
         // The method loops through the transactions list and checks each transaction's date against the date range.
         // Transactions that fall within the date range are printed to the console.
         // If no transactions fall within the date range, the method prints a message indicating that there are no results.
+
+        //make another for loop to filter the list by date
+
     }
 
     private static void filterTransactionsByVendor(String vendor) {
@@ -326,5 +332,7 @@ ArrayList transaction = transactionReader.toString
         // The method loops through the transactions list and checks each transaction's vendor name against the specified vendor name.
         // Transactions with a matching vendor name are printed to the console.
         // If no transactions match the specified vendor name, the method prints a message indicating that there are no results.
+        System.out.println("What vendor do you want to search for: ");
+        String vendor =
     }
 }
