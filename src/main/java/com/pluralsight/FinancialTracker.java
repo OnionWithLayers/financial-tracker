@@ -128,12 +128,14 @@ ArrayList transaction = transactionReader.toString
             transactions.add(transaction);
             //MAKE BUFFERWRITER
             try {
-                FileWriter fileWriter = new FileWriter("transactions.csv");
+                //accesses the file "transactions.csv"        append: true makes it so you can on to the file, if nothing is there, it'll default to false and rewirte the file
+                FileWriter fileWriter = new FileWriter("transactions.csv", true);
+                //writes in the file
                 BufferedWriter buffWriter = new BufferedWriter(fileWriter);
                 //turn the transaction to a string, so I can add it to the file
-                String addedTransaction = transaction.toString();
+                String addedTransaction =  "\n" + transaction.getDate() + "|" + transaction.getTime() + "|" + transaction.getDescription() + "|" + transaction.getVendor() + "|" + transaction.getAmount() ;
                 //write into the file
-                buffWriter.append(addedTransaction);
+                buffWriter.write(addedTransaction);
                 //close the writer so the info saves
                 buffWriter.close();
             } catch (IOException e) {
