@@ -83,6 +83,8 @@ ArrayList transaction = transactionReader.toString
                 String description = parts[2];
                 String vendor = parts[3];
                 double amount = Double.parseDouble(parts[4]);
+                //this changes arrays to arrayLists
+                Arrays.asList(realDate, realTime, description, vendor, amount);
                 Transaction transaction = new Transaction(realDate, realTime, description, vendor, amount);
                 System.out.println(transaction);
             }
@@ -120,8 +122,9 @@ ArrayList transaction = transactionReader.toString
             double depositAmount = scanner.nextDouble();
             scanner.nextLine();
 
+            //unsure if this adds a new transaction to the list
             Transaction transaction = new Transaction(date, time, vendor, description, depositAmount);
-            
+
 
 //            System.out.println("The date and time of added deposit is: (DATE):" + DATE_FORMATTER.format(date) + " | (TIME): " + time);
         } catch (Exception yo) {
