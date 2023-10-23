@@ -58,7 +58,14 @@ public class Transaction {
         this.amount = amount;
     }
 
-   /* public String deposit(){
-        return "Date: " + date + " | Time: " + time;
-    }*/
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "date=" + date +
+                ", time=" + time +
+                ", description='" + description + '\'' +
+                ", vendor='" + vendor + '\'' +
+                ", amount=" + amount +
+                '}';
+    }
 }

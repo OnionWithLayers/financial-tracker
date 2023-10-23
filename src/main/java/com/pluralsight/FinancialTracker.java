@@ -78,17 +78,14 @@ ArrayList transaction = transactionReader.toString
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("\\|");
                 String date = (parts[0]);
-                LocalDate realDate = LocalDate.parse(date);
+                LocalDate realDate = LocalDate.parse(date, DATE_FORMATTER);
                 String time = parts[1];
-                LocalTime realTime = LocalTime.parse(time);
+                LocalTime realTime = LocalTime.parse(time, TIME_FORMATTER);
                 String description = parts[2];
                 String vendor = parts[3];
                 double amount = Double.parseDouble(parts[4]);
-                Transaction newTransaction = new Transaction(realDate, realTime, description, vendor, amount);
                 //this changes arrays to arrayLists
-//                Arrays.asList(realDate, realTime, description, vendor, amount);
-                transactions.add(newTransaction);
-                System.out.println(transactions);
+                transactions.add(new Transaction(realDate, realTime, description, vendor, amount));
             }
             br.close();
         } catch (Exception e) {
@@ -129,13 +126,14 @@ ArrayList transaction = transactionReader.toString
             //unsure how to add a new transaction to the list
             Transaction transaction = new Transaction(date, time, vendor, description, depositAmount);
             transactions.add(transaction);
-      /*      transaction.toString();
-            transactions.toString();*/
+            //MAKE BUFFERWRITER
 
-            System.out.println("Completed transaction: " + transaction.getDate() + ", " + transaction.getTime()
-             + ", " + transaction.getVendor() + ", " + transaction.getDescription() + ", " + transaction.getAmount());
 
-//            System.out.println("The date and time of added deposit is: (DATE):" + DATE_FORMATTER.format(date) + " | (TIME): " + time);
+          /* this isnt needed
+           System.out.println("Completed transaction: " + transaction.getDate() + ", " + transaction.getTime()
+             + ", " + transaction.getVendor() + ", " + transaction.getDescription() + ", " + transaction.getAmount());*/
+
+
         } catch (Exception yo) {
             System.out.println("You did this wrong.\nPlease start over.\n");
         }
@@ -174,8 +172,12 @@ ArrayList transaction = transactionReader.toString
             Transaction paymentTransaction = new Transaction(dateOfPayment, timeOfPayment, descriptionOfPayment, vendorOfPayment, paymentAmount);
             transactions.add(paymentTransaction);
 
-            System.out.println("Payment successfully made on: " + paymentTransaction.getDate() + " | Time: " + paymentTransaction.getTime()
-                    + " | Vendor: " + paymentTransaction.getVendor() + " | Payment Amount: " + paymentTransaction.getAmount());
+
+            //BUFFER READER NEEDED
+
+          /* not needed
+           System.out.println("Payment successfully made on: " + paymentTransaction.getDate() + " | Time: " + paymentTransaction.getTime()
+                    + " | Vendor: " + paymentTransaction.getVendor() + " | Payment Amount: " + paymentTransaction.getAmount());*/
         }catch (Exception e){
             System.out.println("You input some information incorrectly. Please be careful next time and try again\n");
         }
@@ -186,7 +188,7 @@ ArrayList transaction = transactionReader.toString
     private static void ledgerMenu(Scanner scanner) {
         boolean running = true;
         while (running) {
-            System.out.println("Ledger");
+            System.out.println("\nLedger");
             System.out.println("Choose an option:");
             System.out.println("A) All");
             System.out.println("D) Deposits");
@@ -219,14 +221,14 @@ ArrayList transaction = transactionReader.toString
     }
 
     //In-progress
+    //this is just displaying "ledger"
     private static void displayLedger() {
         // This method should display a table of all transactions in the `transactions` ArrayList.
         // The table should have columns for date, time, vendor, type, and amount.
         try{
-            transactions.toString();
-         /*   for (int i = 0; i < transactions.size(); i++){
+          for (int i = 0; i < transactions.size(); i++){
                 System.out.println(transactions.get(i).toString());
-            }*/
+            }
         }catch(Exception e){
             System.out.println("An error has occurred!");
         }
@@ -235,12 +237,14 @@ ArrayList transaction = transactionReader.toString
 
     private static void displayDeposits() {
         // This method should display a table of all deposits in the `transactions` ArrayList.
-        // The table should have columns for date, time, vendor, and amount.
+        // The table should have columns for date, time, vendor, and amount
+        // for loop --> if statement if the amount is positive, print out.
     }
 
     private static void displayPayments() {
         // This method should display a table of all payments in the `transactions` ArrayList.
         // The table should have columns for date, time, vendor, and amount.
+        // for loop --> print out if amount is negative
     }
 
     private static void reportsMenu(Scanner scanner) {
