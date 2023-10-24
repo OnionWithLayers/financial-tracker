@@ -6,10 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Year;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
@@ -303,8 +300,9 @@ ArrayList transaction = transactionReader.toString
                 case "3":
                     // Generate a report for all transactions within the current year,
                     // including the date, vendor, and amount for each transaction.
-                    Year currentYear = Year.now();
-                    filterTransactionsByDate(LocalDate.parse(currentYear.toString()), LocalDate.now());
+                    Year thisYear = Year.now();
+                    int currentYear = thisYear.getValue();
+                   filterTransactionsByDate(LocalDate.of(currentYear, 1, 1), LocalDate.now());
                     break;
                 case "4":
                     // Generate a report for all transactions within the previous year,
