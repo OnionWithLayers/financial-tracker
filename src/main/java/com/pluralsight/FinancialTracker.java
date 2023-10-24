@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
@@ -292,19 +293,23 @@ ArrayList transaction = transactionReader.toString
                 case "1":
                     // Generate a report for all transactions within the current month,
                     // including the date, vendor, and amount for each transaction.
-                    filterTransactionsByDate(LocalDate.now().withDayOfMonth(1),LocalDate.now());
+                    filterTransactionsByDate(LocalDate.now().withDayOfMonth(1), LocalDate.now());
                     break;
                 case "2":
                     // Generate a report for all transactions within the previous month,
                     // including the date, vendor, and amount for each transaction.
-
+                    filterTransactionsByDate(LocalDate.now().minusMonths(1), LocalDate.now());
+                    break;
                 case "3":
                     // Generate a report for all transactions within the current year,
                     // including the date, vendor, and amount for each transaction.
-
+                    filterTransactionsByDate(LocalDate.now().plusYears(1).minusYears(1), LocalDate.now());
+                    break;
                 case "4":
                     // Generate a report for all transactions within the previous year,
                     // including the date, vendor, and amount for each transaction.
+                    filterTransactionsByDate(LocalDate.now().minusYears(1), LocalDate.now());
+                    break;
                 case "5":
                     // Prompt the user to enter a vendor name, then generate a report for all transactions
                     // with that vendor, including the date, vendor, and amount for each transaction.
@@ -328,9 +333,12 @@ ArrayList transaction = transactionReader.toString
         // If no transactions fall within the date range, the method prints a message indicating that there are no results.
 
         System.out.println("Report:");
-        for(Transaction transaction: transactions){
-            if(transaction.getDate().isAfter(startDate.minusDays(1)) && transaction.getDate().isBefore(endDate.plusDays(1))){
+        for (Transaction transaction : transactions) {
+            if (transaction.getDate().isAfter(startDate.minusDays(1)) && transaction.getDate().isBefore(endDate.plusDays(1))) {
                 System.out.println(transaction);
+            } else{
+                System.out.println("nothing here");
+                break;
             }
         }
     }
