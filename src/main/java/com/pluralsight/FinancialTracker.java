@@ -298,12 +298,13 @@ ArrayList transaction = transactionReader.toString
                 case "2":
                     // Generate a report for all transactions within the previous month,
                     // including the date, vendor, and amount for each transaction.
-                    filterTransactionsByDate(LocalDate.now().minusMonths(1), LocalDate.now());
+                    filterTransactionsByDate(LocalDate.now().minusMonths(2), LocalDate.now());
                     break;
                 case "3":
                     // Generate a report for all transactions within the current year,
                     // including the date, vendor, and amount for each transaction.
-                    filterTransactionsByDate(LocalDate.now().plusYears(1).minusYears(1), LocalDate.now());
+                    Year currentYear = Year.now();
+                    filterTransactionsByDate(LocalDate.parse(currentYear.toString()), LocalDate.now());
                     break;
                 case "4":
                     // Generate a report for all transactions within the previous year,
@@ -333,15 +334,14 @@ ArrayList transaction = transactionReader.toString
         // If no transactions fall within the date range, the method prints a message indicating that there are no results.
 
         System.out.println("Report:");
+
         for (Transaction transaction : transactions) {
             if (transaction.getDate().isAfter(startDate.minusDays(1)) && transaction.getDate().isBefore(endDate.plusDays(1))) {
                 System.out.println(transaction);
-            } else{
-                System.out.println("nothing here");
-                break;
             }
         }
     }
+
 
     //check-ready
     private static void searchTransactionsByVendor() {
