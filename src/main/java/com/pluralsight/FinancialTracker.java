@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -312,9 +311,7 @@ ArrayList transaction = transactionReader.toString
                     // with that vendor, including the date, vendor, and amount for each transaction.
                     searchTransactionsByVendor();
                     break;
-                case "6":
-                    filterVendorTransactions();
-                    break;
+
                 case "0":
                     running = false;
                 default:
@@ -331,7 +328,7 @@ ArrayList transaction = transactionReader.toString
         // The method loops through the transactions list and checks each transaction's date against the date range.
         // Transactions that fall within the date range are printed to the console.
         // If no transactions fall within the date range, the method prints a message indicating that there are no results.
-        //FROM
+
         System.out.println("Enter the date from when you would like the filter to start from: ");
         System.out.println("Enter the Month (MM): ");
         String month1 = scanner.nextLine();
@@ -350,12 +347,11 @@ ArrayList transaction = transactionReader.toString
         String year2 = scanner.nextLine();
         endDate = LocalDate.parse(month2 + date2 + year2, DATE_FORMATTER);
 
-        for (int i = 0; )
-
-      /*  if(transactions(0) == dateFilterStart || dateFilterEnd){
-
-        }*/
-
+        for(int i = 0; i < transactions.size(); i++){
+            if(transactions.contains(month1)){
+                System.out.println(transactions.get(i).toString());
+            }
+        }
     }
 
     //check-ready
@@ -383,64 +379,4 @@ ArrayList transaction = transactionReader.toString
 
     }
 
-    //dont focus on for now CAN DELETE IF WANT
-    private static void filterVendorTransactions() {
-
-        System.out.println("What vendor do you want to filter by: ");
-        String userVendor = scanner.nextLine().trim();
-
-        String line;
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("transactions.csv"));
-            while ((line = bufferedReader.readLine()) != null) {
-
-                String[] parts = line.split("\\|");
-                String vendor = parts[3];
-                String endVendor = parts[4];
-                int letter = transactions.indexOf(vendor);
-                String filteredLetter = String.valueOf(letter);
-                System.out.println(filteredLetter);
-
-                for (int i = 0; i < transactions.size(); i++) {
-                    //substring for last |
-                    int startVendorPipe = transactions.toString().indexOf(vendor);
-                    int lastVendorPipe = transactions.toString().indexOf(endVendor);
-                    String pipeVendor = (transactions.toString().substring(startVendorPipe + 1, lastVendorPipe));
-                    if (transactions.toString().indexOf(pipeVendor).contains(userVendor)) {
-                        System.out.println(transactions.get(i).toString());
-                    }
-
-                }
-
-            }
-        } catch (Exception e) {
-            System.out.println("An error has occurred!");
-        }
-
-       /* int letter = vendor.indexOf(transactions.vendor[]);
-        String filteredLetter = String.valueOf(letter);
-        System.out.println(filteredLetter);
-
-        for (int i = 0; i < transactions.size(); i++){
-            //substring for last |
-            int startVendorPipe = transactions.toString().in
-            int lastVendorPipe = transactions.toString().lastIndexOf("\\|");
-            String pipeVendor = transactions.toString().substring(startVendorPipe + 1, lastVendorPipe);
-            if(transactions.toString().contains(pipeVendor)){
-                System.out.println(transactions.get(i).toString());
-            }
-        }*/
-      /*  try {
-            for (int i = 0; i < transactions.size(); i++) {
-                if (filteredLetter.equalsIgnoreCase(transactions.get(i).getVendor())) {
-                    System.out.println(transactions.get(i).toString().substring(0) + "\n");
-                } else {
-                    System.out.println("Sorry, we could not find that vendor!\n");
-                    break;
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("An error has occurred! \n");
-        }*/
-    }
 }
