@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -25,7 +26,7 @@ public class FinancialTracker {
     public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        loadTransactions(FILE_NAME);
+        loadTransactions();
         boolean running = true;
 
         while (running) {
@@ -61,7 +62,7 @@ public class FinancialTracker {
     }
 
     //Raymond checked this good
-    public static void loadTransactions(String fileName) {
+    public static void loadTransactions() {
         // This method should load transactions from a file with the given file name.
         // If the file does not exist, it should be created.
         // The transactions should be stored in the `transactions` ArrayList.
@@ -77,7 +78,8 @@ ArrayList transaction = transactionReader.toString
 * ArrayList<String>(vendor) = transaction(3);  <---- this makes an array for the vendor*/
         String line;
         try {
-            BufferedReader br = new BufferedReader(new FileReader("transactions.csv"));
+            FileReader fileReader = new FileReader("transactions.csv");
+            BufferedReader br = new BufferedReader(fileReader);
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("\\|");
                 String date = (parts[0]);
@@ -308,7 +310,7 @@ ArrayList transaction = transactionReader.toString
                 case "5":
                     // Prompt the user to enter a vendor name, then generate a report for all transactions
                     // with that vendor, including the date, vendor, and amount for each transaction.
-                    filterTransactionsByVendor();
+                    searchTransactionsByVendor();
                     break;
                 case "6":
                     filterVendorTransactions();
@@ -322,28 +324,42 @@ ArrayList transaction = transactionReader.toString
         }
     }
 
-
+    //NEED HELP
     private static void filterTransactionsByDate(LocalDate startDate, LocalDate endDate) {
         // This method filters the transactions by date and prints a report to the console.
         // It takes two parameters: startDate and endDate, which represent the range of dates to filter by.
         // The method loops through the transactions list and checks each transaction's date against the date range.
         // Transactions that fall within the date range are printed to the console.
         // If no transactions fall within the date range, the method prints a message indicating that there are no results.
-
-        System.out.println("Enter the dates you would like to filter by: ");
-        System.out.println("From When: ");
-        String date = scanner.nextLine();
-        LocalDateTime dateFilterStart = LocalDateTime.parse(date, DATE_FORMATTER);
+        //FROM
+        System.out.println("Enter the date from when you would like the filter to start from: ");
+        System.out.println("Enter the Month (MM): ");
+        String month1 = scanner.nextLine();
+        System.out.println("Enter the Date (dd): ");
+        String date1 = scanner.nextLine();
+        System.out.println("Enter the Year (yyyy): ");
+        String year1 = scanner.nextLine();
+        startDate = LocalDate.parse(month1 + date1 + year1, DATE_FORMATTER);
+        //TO
+        System.out.println("Enter the date of when you would like the filter to end at: ");
+        System.out.println("Enter the Month (MM): ");
+        String month2 = scanner.nextLine();
+        System.out.println("Enter the Date (dd): ");
         String date2 = scanner.nextLine();
-        LocalDateTime dateFilterEnd = LocalDateTime.parse(date2, DATE_FORMATTER);
+        System.out.println("Enter the Year (yyyy): ");
+        String year2 = scanner.nextLine();
+        endDate = LocalDate.parse(month2 + date2 + year2, DATE_FORMATTER);
+
+        for (int i = 0; )
 
       /*  if(transactions(0) == dateFilterStart || dateFilterEnd){
 
         }*/
 
     }
-//check-ready
-    private static void filterTransactionsByVendor() {
+
+    //check-ready
+    private static void searchTransactionsByVendor() {
         // This method filters the transactions by vendor and prints a report to the console.
         // It takes one parameter: vendor, which represents the name of the vendor to filter by.
         // The method loops through the transactions list and checks each transaction's vendor name against the specified vendor name.
@@ -367,19 +383,53 @@ ArrayList transaction = transactionReader.toString
 
     }
 
+    //dont focus on for now CAN DELETE IF WANT
     private static void filterVendorTransactions() {
+
         System.out.println("What vendor do you want to filter by: ");
-        String vendor = scanner.nextLine().trim();
-        int letter = vendor.indexOf(vendor);
+        String userVendor = scanner.nextLine().trim();
+
+        String line;
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("transactions.csv"));
+            while ((line = bufferedReader.readLine()) != null) {
+
+                String[] parts = line.split("\\|");
+                String vendor = parts[3];
+                String endVendor = parts[4];
+                int letter = transactions.indexOf(vendor);
+                String filteredLetter = String.valueOf(letter);
+                System.out.println(filteredLetter);
+
+                for (int i = 0; i < transactions.size(); i++) {
+                    //substring for last |
+                    int startVendorPipe = transactions.toString().indexOf(vendor);
+                    int lastVendorPipe = transactions.toString().indexOf(endVendor);
+                    String pipeVendor = (transactions.toString().substring(startVendorPipe + 1, lastVendorPipe));
+                    if (transactions.toString().indexOf(pipeVendor).contains(userVendor)) {
+                        System.out.println(transactions.get(i).toString());
+                    }
+
+                }
+
+            }
+        } catch (Exception e) {
+            System.out.println("An error has occurred!");
+        }
+
+       /* int letter = vendor.indexOf(transactions.vendor[]);
         String filteredLetter = String.valueOf(letter);
         System.out.println(filteredLetter);
 
         for (int i = 0; i < transactions.size(); i++){
-            
-            if(transactions.toString().contains(vendor)){
+            //substring for last |
+            int startVendorPipe = transactions.toString().in
+            int lastVendorPipe = transactions.toString().lastIndexOf("\\|");
+            String pipeVendor = transactions.toString().substring(startVendorPipe + 1, lastVendorPipe);
+            if(transactions.toString().contains(pipeVendor)){
                 System.out.println(transactions.get(i).toString());
             }
-        }
+        }*/
       /*  try {
             for (int i = 0; i < transactions.size(); i++) {
                 if (filteredLetter.equalsIgnoreCase(transactions.get(i).getVendor())) {
