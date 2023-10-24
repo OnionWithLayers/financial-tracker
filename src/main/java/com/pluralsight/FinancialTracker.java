@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -21,9 +22,10 @@ public class FinancialTracker {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT);
 
+    public static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
         loadTransactions(FILE_NAME);
-        Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
         while (running) {
@@ -289,7 +291,7 @@ ArrayList transaction = transactionReader.toString
                 case "1":
                     // Generate a report for all transactions within the current month,
                     // including the date, vendor, and amount for each transaction.
-                    filterTransactionsByDate(startDate, endDate);
+//                    filterTransactionsByDate(startDate, endDate);
                     break;
                 case "2":
                     // Generate a report for all transactions within the previous month,
@@ -305,6 +307,8 @@ ArrayList transaction = transactionReader.toString
                 case "5":
                     // Prompt the user to enter a vendor name, then generate a report for all transactions
                     // with that vendor, including the date, vendor, and amount for each transaction.
+                    filterTransactionsByVendor();
+                    break;
                 case "0":
                     running = false;
                 default:
@@ -322,17 +326,32 @@ ArrayList transaction = transactionReader.toString
         // Transactions that fall within the date range are printed to the console.
         // If no transactions fall within the date range, the method prints a message indicating that there are no results.
 
-        //make another for loop to filter the list by date
+        System.out.println("Enter the dates you would like to filter by: ");
+        System.out.println("From When: ");
+        String date = scanner.nextLine();
+        LocalDateTime dateFilterStart = LocalDateTime.parse(date, DATE_FORMATTER);
+        String date2 = scanner.nextLine();
+        LocalDateTime dateFilterEnd = LocalDateTime.parse(date2, DATE_FORMATTER);
+
+      /*  if(transactions(0) == dateFilterStart || dateFilterEnd){
+
+        }*/
 
     }
 
-    private static void filterTransactionsByVendor(String vendor) {
+    private static void filterTransactionsByVendor() {
         // This method filters the transactions by vendor and prints a report to the console.
         // It takes one parameter: vendor, which represents the name of the vendor to filter by.
         // The method loops through the transactions list and checks each transaction's vendor name against the specified vendor name.
         // Transactions with a matching vendor name are printed to the console.
         // If no transactions match the specified vendor name, the method prints a message indicating that there are no results.
         System.out.println("What vendor do you want to search for: ");
-        String vendor =
+        String vendor = scanner.nextLine().trim();
+
+        for (int i = 0; i < transactions.size(); i++){
+            if(vendor.equalsIgnoreCase(transactions.get(i).getVendor())){
+                System.out.println(transactions.get(i).toString() + "\n");
+            }
+        }
     }
 }
