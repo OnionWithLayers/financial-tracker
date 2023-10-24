@@ -284,7 +284,6 @@ ArrayList transaction = transactionReader.toString
             System.out.println("3) Year To Date");
             System.out.println("4) Previous Year");
             System.out.println("5) Search by Vendor");
-            System.out.println("6) Filter by Vendor");
             System.out.println("0) Back");
 
             String input = scanner.nextLine().trim();
@@ -293,7 +292,7 @@ ArrayList transaction = transactionReader.toString
                 case "1":
                     // Generate a report for all transactions within the current month,
                     // including the date, vendor, and amount for each transaction.
-//                    filterTransactionsByDate(startDate, endDate);
+                    filterTransactionsByDate(LocalDate.now().withDayOfMonth(1),LocalDate.now());
                     break;
                 case "2":
                     // Generate a report for all transactions within the previous month,
@@ -311,7 +310,6 @@ ArrayList transaction = transactionReader.toString
                     // with that vendor, including the date, vendor, and amount for each transaction.
                     searchTransactionsByVendor();
                     break;
-
                 case "0":
                     running = false;
                 default:
@@ -329,27 +327,10 @@ ArrayList transaction = transactionReader.toString
         // Transactions that fall within the date range are printed to the console.
         // If no transactions fall within the date range, the method prints a message indicating that there are no results.
 
-        System.out.println("Enter the date from when you would like the filter to start from: ");
-        System.out.println("Enter the Month (MM): ");
-        String month1 = scanner.nextLine();
-        System.out.println("Enter the Date (dd): ");
-        String date1 = scanner.nextLine();
-        System.out.println("Enter the Year (yyyy): ");
-        String year1 = scanner.nextLine();
-        startDate = LocalDate.parse(month1 + date1 + year1, DATE_FORMATTER);
-        //TO
-        System.out.println("Enter the date of when you would like the filter to end at: ");
-        System.out.println("Enter the Month (MM): ");
-        String month2 = scanner.nextLine();
-        System.out.println("Enter the Date (dd): ");
-        String date2 = scanner.nextLine();
-        System.out.println("Enter the Year (yyyy): ");
-        String year2 = scanner.nextLine();
-        endDate = LocalDate.parse(month2 + date2 + year2, DATE_FORMATTER);
-
-        for(int i = 0; i < transactions.size(); i++){
-            if(transactions.contains(month1)){
-                System.out.println(transactions.get(i).toString());
+        System.out.println("Report:");
+        for(Transaction transaction: transactions){
+            if(transaction.getDate().isAfter(startDate.minusDays(1)) && transaction.getDate().isBefore(endDate.plusDays(1))){
+                System.out.println(transaction);
             }
         }
     }
@@ -368,15 +349,10 @@ ArrayList transaction = transactionReader.toString
             for (int i = 0; i < transactions.size(); i++) {
                 if (vendor.equalsIgnoreCase(transactions.get(i).getVendor())) {
                     System.out.println(transactions.get(i).toString() + "\n");
-                } else {
-                    System.out.println("Sorry, we could not find that vendor!\n");
-                    break;
                 }
             }
         } catch (Exception e) {
             System.out.println("An error has occurred! \n");
         }
-
     }
-
 }
