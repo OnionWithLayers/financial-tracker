@@ -283,6 +283,7 @@ ArrayList transaction = transactionReader.toString
             System.out.println("3) Year To Date");
             System.out.println("4) Previous Year");
             System.out.println("5) Search by Vendor");
+            System.out.println("6) Filter by Vendor");
             System.out.println("0) Back");
 
             String input = scanner.nextLine().trim();
@@ -308,6 +309,9 @@ ArrayList transaction = transactionReader.toString
                     // Prompt the user to enter a vendor name, then generate a report for all transactions
                     // with that vendor, including the date, vendor, and amount for each transaction.
                     filterTransactionsByVendor();
+                    break;
+                case "6":
+                    filterVendorTransactions();
                     break;
                 case "0":
                     running = false;
@@ -338,7 +342,7 @@ ArrayList transaction = transactionReader.toString
         }*/
 
     }
-
+//check-ready
     private static void filterTransactionsByVendor() {
         // This method filters the transactions by vendor and prints a report to the console.
         // It takes one parameter: vendor, which represents the name of the vendor to filter by.
@@ -348,10 +352,45 @@ ArrayList transaction = transactionReader.toString
         System.out.println("What vendor do you want to search for: ");
         String vendor = scanner.nextLine().trim();
 
+        try {
+            for (int i = 0; i < transactions.size(); i++) {
+                if (vendor.equalsIgnoreCase(transactions.get(i).getVendor())) {
+                    System.out.println(transactions.get(i).toString() + "\n");
+                } else {
+                    System.out.println("Sorry, we could not find that vendor!\n");
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("An error has occurred! \n");
+        }
+
+    }
+
+    private static void filterVendorTransactions() {
+        System.out.println("What vendor do you want to filter by: ");
+        String vendor = scanner.nextLine().trim();
+        int letter = vendor.indexOf(vendor);
+        String filteredLetter = String.valueOf(letter);
+        System.out.println(filteredLetter);
+
         for (int i = 0; i < transactions.size(); i++){
-            if(vendor.equalsIgnoreCase(transactions.get(i).getVendor())){
-                System.out.println(transactions.get(i).toString() + "\n");
+            
+            if(transactions.toString().contains(vendor)){
+                System.out.println(transactions.get(i).toString());
             }
         }
+      /*  try {
+            for (int i = 0; i < transactions.size(); i++) {
+                if (filteredLetter.equalsIgnoreCase(transactions.get(i).getVendor())) {
+                    System.out.println(transactions.get(i).toString().substring(0) + "\n");
+                } else {
+                    System.out.println("Sorry, we could not find that vendor!\n");
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("An error has occurred! \n");
+        }*/
     }
 }
