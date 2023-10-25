@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 
 public class FinancialTracker {
 
@@ -60,14 +59,6 @@ public class FinancialTracker {
 
     //Raymond checked this good
     public static void loadTransactions() {
-        // This method should load transactions from a file with the given file name.
-        // If the file does not exist, it should be created.
-        // The transactions should be stored in the `transactions` ArrayList.
-        // Each line of the file represents a single transaction in the following format:
-        // <date>,<time>,<vendor>,<type>,<amount>
-        // For example: 2023-04-29,13:45:00,Amazon,PAYMENT,29.99
-        // After reading all the transactions, the file should be closed.
-        // If any errors occur, an appropriate error message should be displayed.
 /*make transaction reader
 ArrayList transaction = transactionReader.toString
 * line.split("\\|") to split the string into sections by each pipe
@@ -98,12 +89,7 @@ ArrayList transaction = transactionReader.toString
 
     //have Raymond check this
     private static void addDeposit(Scanner scanner) {
-        // This method should prompt the user to enter the date, time, vendor, and amount of a deposit.
-        // The user should enter the date and time in the following format: yyyy-MM-dd HH:mm:ss
-        // The amount should be a positive number.
-
-        // After validating the input, a new `Deposit` object should be created with the entered values.
-        // The new deposit should be added to the `transactions` ArrayList.
+        //Takes in user input for the date and time of user's deposit
         try {
             System.out.println("Please be careful to follow the format correctly\n");
 
@@ -143,10 +129,9 @@ ArrayList transaction = transactionReader.toString
             double depositAmount = scanner.nextDouble();
             scanner.nextLine();
 
-            //unsure how to add a new transaction to the list
             Transaction transaction = new Transaction(date, time, description, vendor, depositAmount);
             transactions.add(transaction);
-            //MAKE BUFFERWRITER
+
             try {
                 //accesses the file "transactions.csv"        append: true makes it so you can on to the file, if nothing is there, it'll default to false and rewirte the file
                 FileWriter fileWriter = new FileWriter("transactions.csv", true);
@@ -169,13 +154,8 @@ ArrayList transaction = transactionReader.toString
 
     }
 
-    //Have Raymond check this
     private static void addPayment(Scanner scanner) {
-        // This method should prompt the user to enter the date, time, vendor, and amount of a payment.
-        // The user should enter the date and time in the following format: yyyy-MM-dd HH:mm:ss
-        // The amount should be a positive number.
-        // After validating the input, a new `Payment` object should be created with the entered values.
-        // The new payment should be added to the `transactions` ArrayList.
+        /*takes the user input for the date and time of the payment they made */
         try {
             System.out.println("So you're adding a payment, huh. Well make sure to follow the correct format " +
                     "as you enter the following information");
@@ -221,9 +201,9 @@ ArrayList transaction = transactionReader.toString
                     vendorOfPayment, realPaymentAmount);
             transactions.add(paymentTransaction);
 
-            //BUFFER READER NEEDED
+
             try {
-                //accesses the file "transactions.csv"        append: true makes it so you can on to the file, if nothing is there, it'll default to false and rewirte the file
+                //accesses the file "transactions.csv"   append: true makes it so you can on to the file, if nothing is there, it'll default to false and rewirte the file
                 FileWriter fileWriter = new FileWriter("transactions.csv", true);
                 //writes in the file
                 BufferedWriter buffWriter = new BufferedWriter(fileWriter);
@@ -243,7 +223,6 @@ ArrayList transaction = transactionReader.toString
         }
     }
 
-    //no need to check this one
     private static void ledgerMenu(Scanner scanner) {
         boolean running = true;
         while (running) {
@@ -279,7 +258,6 @@ ArrayList transaction = transactionReader.toString
         }
     }
 
-    //check-ready
     private static void displayLedger() {
         // This method should display a table of all transactions in the `transactions` ArrayList.
         // The table should have columns for date, time, vendor, type, and amount.
@@ -289,9 +267,7 @@ ArrayList transaction = transactionReader.toString
     }
 
     private static void displayDeposits() {
-        // This method should display a table of all deposits in the `transactions` ArrayList.
-        // The table should have columns for date, time, vendor, and amount
-        // for loop --> if statement if the amount is positive, print out.
+        //goes through everything in transactions list and searches the amount
         for (int i = 0; i < transactions.size(); i++) {
             if (transactions.get(i).getAmount() > 0) {
                 System.out.println(transactions.get(i).toString());
@@ -300,9 +276,7 @@ ArrayList transaction = transactionReader.toString
     }
 
     private static void displayPayments() {
-        // This method should display a table of all payments in the `transactions` ArrayList.
-        // The table should have columns for date, time, vendor, and amount.
-        // for loop --> print out if amount is negative
+        //same function as displayDeposits method but for negative values
         for (int i = 0; i < transactions.size(); i++) {
             if (transactions.get(i).getAmount() < 0) {
                 System.out.println(transactions.get(i).toString());
@@ -326,30 +300,28 @@ ArrayList transaction = transactionReader.toString
 
             switch (input) {
                 case "1":
-                    // Generate a report for all transactions within the current month,
-                    // including the date, vendor, and amount for each transaction.
+                    //takes today's date, specifically the month for the start, and ends the filter to today
                     filterTransactionsByDate(LocalDate.now().withDayOfMonth(1), LocalDate.now());
                     break;
                 case "2":
-                    // Generate a report for all transactions within the previous month,
-                    // including the date, vendor, and amount for each transaction.
+                    // takes today's date, goes back a month and ends to today
                     filterTransactionsByDate(LocalDate.now().minusMonths(2), LocalDate.now());
                     break;
                 case "3":
-                    // Generate a report for all transactions within the current year,
-                    // including the date, vendor, and amount for each transaction.
+                    // creates a variable for this year
                     Year thisYear = Year.now();
+                    //change the year variable to an int
                     int currentYear = thisYear.getValue();
+                    /*takes the current year, changes the format to LocalDate, and starts
+                    at the first day of the first month and ends at today's date'*/
                     filterTransactionsByDate(LocalDate.of(currentYear, 1, 1), LocalDate.now());
                     break;
                 case "4":
-                    // Generate a report for all transactions within the previous year,
-                    // including the date, vendor, and amount for each transaction.
+                    //takes today's date, start it back from 1 year, and ends the filter at today's date
                     filterTransactionsByDate(LocalDate.now().minusYears(1), LocalDate.now());
                     break;
                 case "5":
-                    // Prompt the user to enter a vendor name, then generate a report for all transactions
-                    // with that vendor, including the date, vendor, and amount for each transaction.
+                    //calls the searchTransactionsByVendor() method
                     searchTransactionsByVendor();
                     break;
                 case "0":
@@ -361,41 +333,36 @@ ArrayList transaction = transactionReader.toString
         }
     }
 
-    //NEED HELP
     private static void filterTransactionsByDate(LocalDate startDate, LocalDate endDate) {
-        // This method filters the transactions by date and prints a report to the console.
-        // It takes two parameters: startDate and endDate, which represent the range of dates to filter by.
-        // The method loops through the transactions list and checks each transaction's date against the date range.
-        // Transactions that fall within the date range are printed to the console.
-        // If no transactions fall within the date range, the method prints a message indicating that there are no results.
-
+        //print out "Report"
         System.out.println("Report:");
-
+        //makes a new Transaction object named transaction and goes through the transactions list.
         for (Transaction transaction : transactions) {
+           /* if any dates in the transaction list is after the startDate-1 (so the starting day -1 day,
+            so it includes the starting day), and also is before the endDate+1 (so it includes the end day)
+            print out that String from the transaction list*/
             if (transaction.getDate().isAfter(startDate.minusDays(1)) && transaction.getDate().isBefore(endDate.plusDays(1))) {
                 System.out.println(transaction);
             }
         }
     }
 
-
-    //check-ready
     private static void searchTransactionsByVendor() {
-        // This method filters the transactions by vendor and prints a report to the console.
-        // It takes one parameter: vendor, which represents the name of the vendor to filter by.
-        // The method loops through the transactions list and checks each transaction's vendor name against the specified vendor name.
-        // Transactions with a matching vendor name are printed to the console.
-        // If no transactions match the specified vendor name, the method prints a message indicating that there are no results.
+        //input which vendor you want to look for
         System.out.println("What vendor do you want to search for: ");
         String vendor = scanner.nextLine().trim();
 
         try {
+            /*goes through every transaction in the transactions list, and if any of
+            vendors match the vendor inputted by the user, it will print it out*/
             for (int i = 0; i < transactions.size(); i++) {
                 if (vendor.equalsIgnoreCase(transactions.get(i).getVendor())) {
                     System.out.println(transactions.get(i).toString() + "\n");
                 }
             }
         } catch (Exception e) {
+            /*if something unexpected that doesn't align with the code happens,
+            this text will appear and end the code*/
             System.out.println("An error has occurred! \n");
         }
     }
