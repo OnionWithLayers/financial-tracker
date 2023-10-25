@@ -304,8 +304,9 @@ ArrayList transaction = transactionReader.toString
                     filterTransactionsByDate(LocalDate.now().withDayOfMonth(1), LocalDate.now());
                     break;
                 case "2":
-                    // takes today's date, goes back a month and ends to today
-                    filterTransactionsByDate(LocalDate.now().minusMonths(2), LocalDate.now());
+                    // takes today's date, goes back a month and ends at the end of that month
+                    filterTransactionsByDate(LocalDate.now().minusMonths(1).withDayOfMonth(1),
+                            LocalDate.now().withDayOfMonth(1).minusDays(1));
                     break;
                 case "3":
                     // creates a variable for this year
@@ -317,8 +318,9 @@ ArrayList transaction = transactionReader.toString
                     filterTransactionsByDate(LocalDate.of(currentYear, 1, 1), LocalDate.now());
                     break;
                 case "4":
-                    //takes today's date, start it back from 1 year, and ends the filter at today's date
-                    filterTransactionsByDate(LocalDate.now().minusYears(1), LocalDate.now());
+                    //takes previous's year transactions
+                    filterTransactionsByDate(LocalDate.now().minusYears(1).withDayOfYear(1),
+                            LocalDate.now().minusYears(1).withMonth(12).withDayOfMonth(31));
                     break;
                 case "5":
                     //calls the searchTransactionsByVendor() method
@@ -366,4 +368,8 @@ ArrayList transaction = transactionReader.toString
             System.out.println("An error has occurred! \n");
         }
     }
+
+
+
+
 }
