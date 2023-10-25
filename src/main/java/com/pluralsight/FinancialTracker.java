@@ -106,12 +106,31 @@ ArrayList transaction = transactionReader.toString
         // The new deposit should be added to the `transactions` ArrayList.
         try {
             System.out.println("Please be careful to follow the format correctly\n");
-            System.out.println("Enter the date (yyyy-MM-dd): ");
-            String userDate = scanner.nextLine().trim();
-            LocalDate date = LocalDate.parse(userDate, DATE_FORMATTER);
 
-            System.out.println("Enter the time (HH:mm:ss): ");
-            String userTime = scanner.nextLine().trim();
+            //getting date
+            System.out.println("Enter the month of the deposit (MM): ");
+            String userMonth = scanner.nextLine().trim();
+
+            System.out.println("Enter the date of the deposit (dd): ");
+            String userDate = scanner.nextLine().trim();
+
+            System.out.println("Enter the year of the deposit (yyyy): ");
+            String userYear = scanner.nextLine().trim();
+
+            String userDeposit = userYear + "-" + userMonth + "-" + userDate;
+            LocalDate date = LocalDate.parse(userDeposit, DATE_FORMATTER);
+
+            //getting time
+            System.out.println("Enter the hour of the deposit (HH): ");
+            String userHour = scanner.nextLine().trim();
+
+            System.out.println("Enter the minute(s) of the deposit (mm): ");
+            String userMin = scanner.nextLine().trim();
+
+            System.out.println("Enter the second(s) of the deposit (ss): ");
+            String userSec = scanner.nextLine().trim();
+
+            String userTime = userHour + ":" + userMin + ":" + userSec;
             LocalTime time = LocalTime.parse(userTime, TIME_FORMATTER);
 
             System.out.println("Enter the description: ");
@@ -161,12 +180,30 @@ ArrayList transaction = transactionReader.toString
             System.out.println("So you're adding a payment, huh. Well make sure to follow the correct format " +
                     "as you enter the following information");
 
-            System.out.println("Enter the date (yyyy-MM-dd): ");
-            String userDate = scanner.nextLine().trim();
-            LocalDate dateOfPayment = LocalDate.parse(userDate, DATE_FORMATTER);
+            //getting date
+            System.out.println("Enter the month of the deposit (MM): ");
+            String userMonth = scanner.nextLine().trim();
 
-            System.out.println("Enter the time (HH:mm:ss): ");
-            String userTime = scanner.nextLine().trim();
+            System.out.println("Enter the date of the deposit (dd): ");
+            String userDate = scanner.nextLine().trim();
+
+            System.out.println("Enter the year of the deposit (yyyy): ");
+            String userYear = scanner.nextLine().trim();
+
+            String userPayment = userYear + "-" + userMonth + "-" + userDate;
+            LocalDate dateOfPayment = LocalDate.parse(userPayment, DATE_FORMATTER);
+
+            //getting time
+            System.out.println("Enter the hour of the deposit (HH): ");
+            String userHour = scanner.nextLine().trim();
+
+            System.out.println("Enter the minute(s) of the deposit (mm): ");
+            String userMin = scanner.nextLine().trim();
+
+            System.out.println("Enter the second(s) of the deposit (ss): ");
+            String userSec = scanner.nextLine().trim();
+
+            String userTime = userHour + ":" + userMin + ":" + userSec;
             LocalTime timeOfPayment = LocalTime.parse(userTime, TIME_FORMATTER);
 
             System.out.println("Enter the description: ");
@@ -177,10 +214,11 @@ ArrayList transaction = transactionReader.toString
 
             System.out.println("Enter the amount of deposit: ");
             double paymentAmount = scanner.nextDouble();
+            double realPaymentAmount = -paymentAmount;
             scanner.nextLine();
 
             Transaction paymentTransaction = new Transaction(dateOfPayment, timeOfPayment, descriptionOfPayment,
-                    vendorOfPayment, paymentAmount);
+                    vendorOfPayment, realPaymentAmount);
             transactions.add(paymentTransaction);
 
             //BUFFER READER NEEDED
@@ -302,7 +340,7 @@ ArrayList transaction = transactionReader.toString
                     // including the date, vendor, and amount for each transaction.
                     Year thisYear = Year.now();
                     int currentYear = thisYear.getValue();
-                   filterTransactionsByDate(LocalDate.of(currentYear, 1, 1), LocalDate.now());
+                    filterTransactionsByDate(LocalDate.of(currentYear, 1, 1), LocalDate.now());
                     break;
                 case "4":
                     // Generate a report for all transactions within the previous year,
