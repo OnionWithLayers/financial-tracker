@@ -238,15 +238,19 @@ ArrayList transaction = transactionReader.toString
 
             switch (input.toUpperCase()) {
                 case "A":
+                    progress();
                     displayLedger();
                     break;
                 case "D":
+                    progress();
                     displayDeposits();
                     break;
                 case "P":
+                    progress();
                     displayPayments();
                     break;
                 case "R":
+                    progress();
                     reportsMenu(scanner);
                     break;
                 case "H":
@@ -369,7 +373,22 @@ ArrayList transaction = transactionReader.toString
         }
     }
 
+    public static void progress() {
+        String[] animationFrames = {"Loading.", "Loading..", "Loading...", "Loading...."};
+        int currentFrame = 0;
+        boolean flag = true;
+        for(int acc = 0; acc < 12; acc++) {
+            System.out.print("\r" + animationFrames[currentFrame]);
+            currentFrame = (currentFrame + 1) % animationFrames.length;
+            if (acc==1) flag = flag;
+            try {
+                Thread.sleep(500);
 
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
 
 }
