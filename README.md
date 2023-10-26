@@ -10,4 +10,9 @@
 ![addPayment.jpg](screenshots%2FaddPayment.jpg)
 ### Ledger
 ![ledger.jpg](screenshots%2Fledger.jpg)
-### 
+### Error
+![error.jpg](screenshots%2Ferror.jpg)
+## Special Thanks
+- [Raymond Maroun](https://github.com/RayMaroun) for teaching me everything I know about Java so far; he's provided me with a lot of guidance and a skeleton to this assignment to help me.
+- My Year Up cohort for being super supportive and helping me with study sessions after class.
+- [Google](https://www.google.com/) for being my best friend and helping me search up methods and concepts I didn't know yet or couldn't understand at first

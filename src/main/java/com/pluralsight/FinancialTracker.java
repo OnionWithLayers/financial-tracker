@@ -46,6 +46,7 @@ public class FinancialTracker {
                     ledgerMenu(scanner);
                     break;
                 case "X":
+                    System.out.println("Thanks for choosing me! Bye! ^-^");
                     running = false;
                     break;
                 default:
@@ -155,7 +156,7 @@ ArrayList transaction = transactionReader.toString
                 e.printStackTrace();
             }
         } catch (Exception yo) {
-            System.out.println("You did this wrong.\nPlease start over.\n");
+            System.out.println("Uh-oh, an error!\nYou did this wrong.\nPlease start over.\n");
         }
 
     }
@@ -267,7 +268,6 @@ ArrayList transaction = transactionReader.toString
                 case "H":
                     running = false;
                 default:
-                    System.out.println("Invalid option");
                     break;
             }
         }
