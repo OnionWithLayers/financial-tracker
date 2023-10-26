@@ -26,7 +26,7 @@ public class FinancialTracker {
         boolean running = true;
 
         while (running) {
-            System.out.println("Welcome to TransactionApp");
+            System.out.println("Welcome to our TransactionApp!  ( 'u' )");
             System.out.println("Choose an option:");
             System.out.println("A) Add Deposit");
             System.out.println("P) Make Payment (Debit)");
@@ -91,6 +91,7 @@ ArrayList transaction = transactionReader.toString
     private static void addDeposit(Scanner scanner) {
         //Takes in user input for the date and time of user's deposit
         try {
+            System.out.println("YESSIRRRR \nBRING IN THAT MONEY  ^ v ^");
             System.out.println("Please be careful to follow the format correctly\n");
 
             //getting date
@@ -132,6 +133,10 @@ ArrayList transaction = transactionReader.toString
             Transaction transaction = new Transaction(date, time, description, vendor, depositAmount);
             transactions.add(transaction);
 
+            System.out.println("Your Deposit " + transaction + " was made successfully!");
+            System.out.println("Great job buddy!  ^-^");
+            System.out.println("You'll be rerouted to the main menu now! \n");
+
             try {
                 //accesses the file "transactions.csv"        append: true makes it so you can on to the file, if nothing is there, it'll default to false and rewirte the file
                 FileWriter fileWriter = new FileWriter("transactions.csv", true);
@@ -144,6 +149,7 @@ ArrayList transaction = transactionReader.toString
                 buffWriter.write(addedTransaction);
                 //close the writer so the info saves
                 buffWriter.close();
+
             } catch (IOException e) {
                 System.out.println("Failed to save data");
                 e.printStackTrace();
@@ -157,30 +163,30 @@ ArrayList transaction = transactionReader.toString
     private static void addPayment(Scanner scanner) {
         /*takes the user input for the date and time of the payment they made */
         try {
-            System.out.println("So you're adding a payment, huh. Well make sure to follow the correct format " +
-                    "as you enter the following information");
+            System.out.println("So you're adding a payment, huh. \nWell make sure to follow the correct format " +
+                    "as you enter the following information\n");
 
             //getting date
-            System.out.println("Enter the month of the deposit (MM): ");
+            System.out.println("Enter the month of the payment (MM): ");
             String userMonth = scanner.nextLine().trim();
 
-            System.out.println("Enter the date of the deposit (dd): ");
+            System.out.println("Enter the date of the payment (dd): ");
             String userDate = scanner.nextLine().trim();
 
-            System.out.println("Enter the year of the deposit (yyyy): ");
+            System.out.println("Enter the year of the payment (yyyy): ");
             String userYear = scanner.nextLine().trim();
 
             String userPayment = userYear + "-" + userMonth + "-" + userDate;
             LocalDate dateOfPayment = LocalDate.parse(userPayment, DATE_FORMATTER);
 
             //getting time
-            System.out.println("Enter the hour of the deposit (HH): ");
+            System.out.println("Enter the hour of the payment (HH): ");
             String userHour = scanner.nextLine().trim();
 
-            System.out.println("Enter the minute(s) of the deposit (mm): ");
+            System.out.println("Enter the minute(s) of the payment (mm): ");
             String userMin = scanner.nextLine().trim();
 
-            System.out.println("Enter the second(s) of the deposit (ss): ");
+            System.out.println("Enter the second(s) of the payment (ss): ");
             String userSec = scanner.nextLine().trim();
 
             String userTime = userHour + ":" + userMin + ":" + userSec;
@@ -192,7 +198,7 @@ ArrayList transaction = transactionReader.toString
             System.out.println("Enter the vendor: ");
             String vendorOfPayment = scanner.nextLine().trim();
 
-            System.out.println("Enter the amount of deposit: ");
+            System.out.println("Enter the amount of payment: ");
             double paymentAmount = scanner.nextDouble();
             double realPaymentAmount = -paymentAmount;
             scanner.nextLine();
@@ -200,6 +206,10 @@ ArrayList transaction = transactionReader.toString
             Transaction paymentTransaction = new Transaction(dateOfPayment, timeOfPayment, descriptionOfPayment,
                     vendorOfPayment, realPaymentAmount);
             transactions.add(paymentTransaction);
+
+            System.out.println("Your Payment " + paymentTransaction + " was successfully recorded.");
+            System.out.println("Hope that payment was worth it.  T^T");
+            System.out.println("Sending you back to the home screen. T^T\n");
 
 
             try {
@@ -214,6 +224,7 @@ ArrayList transaction = transactionReader.toString
                 buffWriter.write(addedTransaction);
                 //close the writer so the info saves
                 buffWriter.close();
+
             } catch (IOException e) {
                 System.out.println("Failed to save data");
                 e.printStackTrace();
@@ -239,18 +250,18 @@ ArrayList transaction = transactionReader.toString
             switch (input.toUpperCase()) {
                 case "A":
                     progress();
+                    System.out.println("\n");
                     displayLedger();
                     break;
                 case "D":
-                    progress();
                     displayDeposits();
                     break;
                 case "P":
-                    progress();
                     displayPayments();
                     break;
                 case "R":
                     progress();
+                    System.out.println("\n");
                     reportsMenu(scanner);
                     break;
                 case "H":
@@ -322,7 +333,7 @@ ArrayList transaction = transactionReader.toString
                     filterTransactionsByDate(LocalDate.of(currentYear, 1, 1), LocalDate.now());
                     break;
                 case "4":
-                    //takes previous's year transactions
+                    //takes previous year transactions
                     filterTransactionsByDate(LocalDate.now().minusYears(1).withDayOfYear(1),
                             LocalDate.now().minusYears(1).withMonth(12).withDayOfMonth(31));
                     break;
