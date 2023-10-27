@@ -22,14 +22,24 @@ public class FinancialTracker {
     public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+        //colors for font
+        String RESET = "\u001B[0m";
+        String RED = "\u001B[31m";
+        String GREEN = "\u001B[32m";
+        String YELLOW = "\u001B[33m";
+        String BLUE = "\u001B[34m";
+        String CYAN = "\u001B[36m";
+
+        //background color
+        String backYellow = "\u001B[43m";
         loadTransactions();
         boolean running = true;
 
         while (running) {
-            System.out.println("Welcome to our TransactionApp!  ( 'u' )");
-            System.out.println("Choose an option:");
-            System.out.println("A) Add Deposit");
-            System.out.println("P) Make Payment (Debit)");
+            System.out.println(YELLOW + "Welcome to our TransactionApp!  ( 'u' )" + RESET);
+            System.out.println(BLUE + "Choose an option:" + RESET);
+            System.out.println(GREEN + "A) Add Deposit" + RESET);
+            System.out.println(RED + "P) Make Payment (Debit)" + RESET);
             System.out.println("L) Ledger");
             System.out.println("X) Exit");
 
@@ -388,10 +398,10 @@ ArrayList transaction = transactionReader.toString
         String[] animationFrames = {"Loading.", "Loading..", "Loading...", "Loading...."};
         int currentFrame = 0;
         boolean flag = true;
-        for(int acc = 0; acc < 12; acc++) {
+        for (int acc = 0; acc < 12; acc++) {
             System.out.print("\r" + animationFrames[currentFrame]);
             currentFrame = (currentFrame + 1) % animationFrames.length;
-            if (acc==1) flag = flag;
+            if (acc == 1) flag = flag;
             try {
                 Thread.sleep(500);
 
@@ -401,5 +411,11 @@ ArrayList transaction = transactionReader.toString
         }
     }
 
-
+   /* public static String Color(){
+        String RESET = "\u001B[0m";
+        String RED = "\u001B[31m";
+        String GREEN = "\u001B[32m";
+        String YELLOW = "\u001B[33m";
+        String BLUE = "\u001B[44m";
+    }*/
 }
