@@ -2,7 +2,6 @@ package com.pluralsight;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -232,7 +231,7 @@ ArrayList transaction = transactionReader.toString
             System.out.println(YELLOW + "Your " + RED_BOLD + "Payment " + RESET + paymentTransaction + YELLOW + " was successfully recorded." + RESET);
             System.out.println(YELLOW + "Hope that payment was worth it.  T^T");
             System.out.println("Sending you back to the home screen. T^T\n" + RESET);
-            Thread.sleep(500);
+            Thread.sleep(650);
 
 
             try {
