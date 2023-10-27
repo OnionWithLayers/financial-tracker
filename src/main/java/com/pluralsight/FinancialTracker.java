@@ -177,7 +177,7 @@ ArrayList transaction = transactionReader.toString
                 e.printStackTrace();
             }
         } catch (Exception yo) {
-            System.out.println(YELLOW + "Uh-oh, an error!\nYou did this wrong.\nGo start over.\n" + RESET);
+            System.out.println(YELLOW + "Uh-oh, an error!\nHow'd you do this wrong?\nGo start over and read carefully.\n" + RESET);
         }
 
     }
@@ -229,9 +229,10 @@ ArrayList transaction = transactionReader.toString
                     vendorOfPayment, realPaymentAmount);
             transactions.add(paymentTransaction);
 
-            System.out.println("Your Payment " + paymentTransaction + " was successfully recorded.");
+            System.out.println(YELLOW + "Your " + RED_BOLD + "Payment " + RESET + paymentTransaction + YELLOW + " was successfully recorded." + RESET);
             System.out.println(YELLOW + "Hope that payment was worth it.  T^T");
             System.out.println("Sending you back to the home screen. T^T\n" + RESET);
+            Thread.sleep(500);
 
 
             try {
@@ -248,11 +249,11 @@ ArrayList transaction = transactionReader.toString
                 buffWriter.close();
 
             } catch (IOException e) {
-                System.out.println("Failed to save data");
+                System.out.println(YELLOW + "Oops. Failed to save data" + RESET);
                 e.printStackTrace();
             }
         } catch (Exception e) {
-            System.out.println("You input some information incorrectly. Please be careful next time and try again\n");
+            System.out.println(YELLOW + "You input some information incorrectly. Be careful next time and try again\n" + RESET);
         }
     }
 
