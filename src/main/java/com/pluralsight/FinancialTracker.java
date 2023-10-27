@@ -21,31 +21,39 @@ public class FinancialTracker {
 
     public static Scanner scanner = new Scanner(System.in);
 
+    //colors for font
+    public static String RESET = "\u001B[0m";
+    public static String RED = "\u001B[31m";
+    public static String GREEN = "\u001B[32m";
+    public static String YELLOW = "\u001B[33m";
+    public static String BLUE = "\u001B[34m";
+    public static String CYAN = "\u001B[36m";
+    public static String PURPLE = "\033[0;35m";
+    public static String GREEN_BOLD = "\033[1;32m";
+    public static String RED_BOLD = "\033[1;31m";
+    public static String BLACK_UNDERLINED = "\033[4;30m";
+    public static String YELLOW_BOLD = "\033[1;33m";
+    public static String PURPLE_BOLD = "\033[1;35m";
+    public static String BLACK_BOLD = "\033[1;30m";
+    public static String CYAN_BOLD = "\033[1;36m";
+    public static String WHITE = "\033[0;37m";
     public static void main(String[] args) throws InterruptedException {
-        //colors for font
-        String RESET = "\u001B[0m";
-        String RED = "\u001B[31m";
-        String GREEN = "\u001B[32m";
-        String YELLOW = "\u001B[33m";
-        String BLUE = "\u001B[34m";
-        String CYAN = "\u001B[36m";
-        String GREEN_BOLD = "\033[1;32m";
-        String RED_BOLD = "\033[1;31m";
-        String BLACK_UNDERLINED = "\033[4;30m";
-        String WHITE_UNDERLINED = "\033[4;37m";
-        String YELLOW_BOLD = "\033[1;33m";
+
 
         loadTransactions();
         boolean running = true;
 
         while (running) {
             System.out.println(YELLOW + "Welcome to our TransactionApp! " + YELLOW_BOLD + "( 'u' )" + RESET);
-            Thread.sleep(1100);
+            Thread.sleep(1000);
             System.out.println(BLUE + "Choose an option:" + RESET);
-            Thread.sleep(800);
+            Thread.sleep(600);
             System.out.println(GREEN + "A) Add " + GREEN_BOLD + "Deposit" + RESET);
+            Thread.sleep(600);
             System.out.println(RED + "P) Make " + RED_BOLD + "Payment " + BLACK_UNDERLINED + "(Debit)" + RESET);
-            System.out.println("L) Ledger");
+            Thread.sleep(600);
+            System.out.println(PURPLE + "L) " + PURPLE_BOLD +"Ledger" + RESET);
+            Thread.sleep(600);
             System.out.println("X) Exit");
 
             String input = scanner.nextLine().trim();
@@ -98,7 +106,7 @@ ArrayList transaction = transactionReader.toString
             }
             br.close();
         } catch (Exception e) {
-            System.out.println("An error has occurred!");
+            System.out.println(YELLOW + "An error has occurred!" + RESET);
         }
 
     }
@@ -107,8 +115,8 @@ ArrayList transaction = transactionReader.toString
     private static void addDeposit(Scanner scanner) {
         //Takes in user input for the date and time of user's deposit
         try {
-            System.out.println("YESSIRRRR \nBRING IN THAT MONEY  ^ v ^");
-            System.out.println("Please be careful to follow the format correctly\n");
+            System.out.println(YELLOW + "YESSIRRRR \nBRING IN THAT " + GREEN_BOLD + "MONEY " + RESET + YELLOW + " ^ v ^" + RESET);
+            System.out.println(BLACK_BOLD + "Please be careful to follow the format correctly\n" + RESET);
 
             //getting date
             System.out.println("Enter the month of the deposit (MM): ");
@@ -149,9 +157,9 @@ ArrayList transaction = transactionReader.toString
             Transaction transaction = new Transaction(date, time, description, vendor, depositAmount);
             transactions.add(transaction);
 
-            System.out.println("Your Deposit " + transaction + " was made successfully!");
+            System.out.println(YELLOW + "Your Deposit " + RESET + transaction + YELLOW + " was made successfully!");
             System.out.println("Great job buddy!  ^-^");
-            System.out.println("You'll be rerouted to the main menu now! \n");
+            System.out.println("You'll be rerouted to the main menu now! \n" + RESET);
 
             try {
                 //accesses the file "transactions.csv"        append: true makes it so you can on to the file, if nothing is there, it'll default to false and rewirte the file
@@ -171,7 +179,7 @@ ArrayList transaction = transactionReader.toString
                 e.printStackTrace();
             }
         } catch (Exception yo) {
-            System.out.println("Uh-oh, an error!\nYou did this wrong.\nPlease start over.\n");
+            System.out.println(YELLOW + "Uh-oh, an error!\nYou did this wrong.\nPlease start over.\n" + RESET);
         }
 
     }
@@ -179,8 +187,8 @@ ArrayList transaction = transactionReader.toString
     private static void addPayment(Scanner scanner) {
         /*takes the user input for the date and time of the payment they made */
         try {
-            System.out.println("So you're adding a payment, huh. \nWell make sure to follow the correct format " +
-                    "as you enter the following information\n");
+            System.out.println(RED + "So you're adding a payment, " + RED_BOLD + "huh." + RESET + "\nWell make sure to follow the correct format " +
+                    "as you enter the following information.\n");
 
             //getting date
             System.out.println("Enter the month of the payment (MM): ");
@@ -224,8 +232,8 @@ ArrayList transaction = transactionReader.toString
             transactions.add(paymentTransaction);
 
             System.out.println("Your Payment " + paymentTransaction + " was successfully recorded.");
-            System.out.println("Hope that payment was worth it.  T^T");
-            System.out.println("Sending you back to the home screen. T^T\n");
+            System.out.println(YELLOW + "Hope that payment was worth it.  T^T");
+            System.out.println("Sending you back to the home screen. T^T\n" + RESET);
 
 
             try {
@@ -250,16 +258,17 @@ ArrayList transaction = transactionReader.toString
         }
     }
 
-    private static void ledgerMenu(Scanner scanner) {
+    private static void ledgerMenu(Scanner scanner) throws InterruptedException {
         boolean running = true;
         while (running) {
-            System.out.println("\nLedger");
-            System.out.println("Choose an option:");
-            System.out.println("A) All");
-            System.out.println("D) Deposits");
-            System.out.println("P) Payments");
-            System.out.println("R) Reports");
-            System.out.println("H) Home");
+            System.out.println(PURPLE_BOLD + "\nLedger" + RESET);
+            System.out.println(YELLOW + "Choose an option!" + RESET);
+            Thread.sleep(500);
+            System.out.println(PURPLE + "A) " + PURPLE_BOLD + "All" + RESET);
+            System.out.println(GREEN + "D) " + GREEN_BOLD + "Deposits" + RESET);
+            System.out.println(RED + "P) " + RED_BOLD + "Payments" + RESET);
+            System.out.println(CYAN + "R) " + CYAN_BOLD + "Reports" + RESET);
+            System.out.println(YELLOW + "H) " + YELLOW_BOLD + "Home!" + RESET);
 
             String input = scanner.nextLine().trim();
 
@@ -317,8 +326,8 @@ ArrayList transaction = transactionReader.toString
     private static void reportsMenu(Scanner scanner) {
         boolean running = true;
         while (running) {
-            System.out.println("Reports");
-            System.out.println("Choose an option:");
+            System.out.println(CYAN_BOLD + "Reports" + RESET);
+            System.out.println(YELLOW + "Choose an option!" + RESET);
             System.out.println("1) Month To Date");
             System.out.println("2) Previous Month");
             System.out.println("3) Year To Date");
@@ -359,7 +368,7 @@ ArrayList transaction = transactionReader.toString
                 case "0":
                     running = false;
                 default:
-                    System.out.println("Invalid option");
+                    System.out.println(YELLOW + "Sorry, that's an invalid option, buddy");
                     break;
             }
         }
@@ -395,12 +404,12 @@ ArrayList transaction = transactionReader.toString
         } catch (Exception e) {
             /*if something unexpected that doesn't align with the code happens,
             this text will appear and end the code*/
-            System.out.println("An error has occurred! \n");
+            System.out.println(YELLOW + "An error occurred!  o - o\n");
         }
     }
 
     public static void progress() {
-        String[] animationFrames = {"Loading.", "Loading..", "Loading...", "Loading...."};
+        String[] animationFrames = {YELLOW + "Gimme a sec.", "Gimme a sec..", "Gimme a sec...", "Gimme a sec...." + RESET};
         int currentFrame = 0;
         boolean flag = true;
         for (int acc = 0; acc < 12; acc++) {
