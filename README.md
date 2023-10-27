@@ -33,9 +33,9 @@
     this project and I think it would have helped if there were more classes to help myself navigate through 
     everything.
     Another improvement I would make is change how accessible the user input would be regarding the payments and 
-    deposits. I tried to make it a little simpler by having the user type in the date and time components seperately,
-    but I would like to make it so that the user would be given a fill-in-the-blank type of format so the user can
-    input the information quicker and more efficiently.
+    deposits. I tried to make it a little simpler by having the user type in the date and time components seper-
+    ately, but I would like to make it so that the user would be given a fill-in-the-blank type of format so the
+    user can input the information quicker and more efficiently.
     I would also like to give the program little functioning emojis that made it seem like the app had more per-
     sonality since I think that it would be boring if it was just information. Another thing would be the pacing 
     of information displayed. I tried to work around some of it by adding a small animated text, but I figured
