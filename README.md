@@ -23,6 +23,7 @@
 
 ## Special Feature gif
 ![loading.gif](screenshots%2Floading.gif)
+![Animation2.gif](screenshots%2FAnimation2.gif)
 ## Setup
 - In order to run this program on your computer, you will need IntelliJ and GitBash on your computer.
 - Then clone the repository: git clone https://github.com/OnionWithLayers/financial-tracker.git cd financial-tracker

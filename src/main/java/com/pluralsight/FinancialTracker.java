@@ -100,10 +100,10 @@ ArrayList transaction = transactionReader.toString
                 double amount = Double.parseDouble(parts[4]);
                 //this changes arrays to arrayLists
                 transactions.add(new Transaction(realDate, realTime, description, vendor, amount));
+
             }
             br.close();
         } catch (Exception e) {
-            System.out.println(YELLOW + "An error has occurred!" + RESET);
         }
 
     }
