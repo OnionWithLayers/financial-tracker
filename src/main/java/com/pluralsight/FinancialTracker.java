@@ -36,7 +36,8 @@ public class FinancialTracker {
     public static String PURPLE_BOLD = "\033[1;35m";
     public static String BLACK_BOLD = "\033[1;30m";
     public static String CYAN_BOLD = "\033[1;36m";
-    public static String WHITE = "\033[0;37m";
+    public static String BLUE_BOLD = "\033[1;34m";
+
     public static void main(String[] args) throws InterruptedException {
 
 
@@ -49,11 +50,8 @@ public class FinancialTracker {
             System.out.println(BLUE + "Choose an option:" + RESET);
             Thread.sleep(600);
             System.out.println(GREEN + "A) Add " + GREEN_BOLD + "Deposit" + RESET);
-            Thread.sleep(600);
             System.out.println(RED + "P) Make " + RED_BOLD + "Payment " + BLACK_UNDERLINED + "(Debit)" + RESET);
-            Thread.sleep(600);
             System.out.println(PURPLE + "L) " + PURPLE_BOLD +"Ledger" + RESET);
-            Thread.sleep(600);
             System.out.println("X) Exit");
 
             String input = scanner.nextLine().trim();
@@ -69,7 +67,7 @@ public class FinancialTracker {
                     ledgerMenu(scanner);
                     break;
                 case "X":
-                    System.out.println("Thanks for choosing me! Bye! ^-^");
+                    System.out.println(YELLOW + "Thanks for choosing me! Bye! " + YELLOW_BOLD + "^-^" + RESET);
                     running = false;
                     break;
                 default:
@@ -179,7 +177,7 @@ ArrayList transaction = transactionReader.toString
                 e.printStackTrace();
             }
         } catch (Exception yo) {
-            System.out.println(YELLOW + "Uh-oh, an error!\nYou did this wrong.\nPlease start over.\n" + RESET);
+            System.out.println(YELLOW + "Uh-oh, an error!\nYou did this wrong.\nGo start over.\n" + RESET);
         }
 
     }
@@ -262,7 +260,7 @@ ArrayList transaction = transactionReader.toString
         boolean running = true;
         while (running) {
             System.out.println(PURPLE_BOLD + "\nLedger" + RESET);
-            System.out.println(YELLOW + "Choose an option!" + RESET);
+            System.out.println(YELLOW + "Choose another option!" + YELLOW_BOLD + " ( 'u' )" + RESET);
             Thread.sleep(500);
             System.out.println(PURPLE + "A) " + PURPLE_BOLD + "All" + RESET);
             System.out.println(GREEN + "D) " + GREEN_BOLD + "Deposits" + RESET);
@@ -323,17 +321,18 @@ ArrayList transaction = transactionReader.toString
         }
     }
 
-    private static void reportsMenu(Scanner scanner) {
+    private static void reportsMenu(Scanner scanner) throws InterruptedException {
         boolean running = true;
         while (running) {
             System.out.println(CYAN_BOLD + "Reports" + RESET);
-            System.out.println(YELLOW + "Choose an option!" + RESET);
-            System.out.println("1) Month To Date");
-            System.out.println("2) Previous Month");
-            System.out.println("3) Year To Date");
-            System.out.println("4) Previous Year");
-            System.out.println("5) Search by Vendor");
-            System.out.println("0) Back");
+            System.out.println(YELLOW + "Choose an option again!" + YELLOW_BOLD + " ( 'u' )" + RESET);
+            Thread.sleep(500);
+            System.out.println(GREEN + "1) " + GREEN_BOLD + "Month To Date" + RESET);
+            System.out.println(CYAN + "2) " + CYAN_BOLD + "Previous Month" +RESET);
+            System.out.println(BLUE + "3) " + BLUE_BOLD + "Year To Date" + RESET);
+            System.out.println(RED + "4) " + RED_BOLD + "Previous Year" + RESET);
+            System.out.println(PURPLE + "5) " + PURPLE_BOLD + "Search by Vendor" + RESET);
+            System.out.println(YELLOW + "0) " + YELLOW_BOLD + "Back" + RESET);
 
             String input = scanner.nextLine().trim();
 
@@ -368,7 +367,6 @@ ArrayList transaction = transactionReader.toString
                 case "0":
                     running = false;
                 default:
-                    System.out.println(YELLOW + "Sorry, that's an invalid option, buddy");
                     break;
             }
         }
@@ -376,7 +374,7 @@ ArrayList transaction = transactionReader.toString
 
     private static void filterTransactionsByDate(LocalDate startDate, LocalDate endDate) {
         //print out "Report"
-        System.out.println("Report:");
+        System.out.println(YELLOW + "Here are your reports! ^-^" + RESET);
         //makes a new Transaction object named transaction and goes through the transactions list.
         for (Transaction transaction : transactions) {
            /* if any dates in the transaction list is after the startDate-1 (so the starting day -1 day,
