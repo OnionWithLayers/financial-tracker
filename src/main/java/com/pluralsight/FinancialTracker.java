@@ -21,7 +21,7 @@ public class FinancialTracker {
 
     public static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         //colors for font
         String RESET = "\u001B[0m";
         String RED = "\u001B[31m";
@@ -29,17 +29,22 @@ public class FinancialTracker {
         String YELLOW = "\u001B[33m";
         String BLUE = "\u001B[34m";
         String CYAN = "\u001B[36m";
+        String GREEN_BOLD = "\033[1;32m";
+        String RED_BOLD = "\033[1;31m";
+        String BLACK_UNDERLINED = "\033[4;30m";
+        String WHITE_UNDERLINED = "\033[4;37m";
+        String YELLOW_BOLD = "\033[1;33m";
 
-        //background color
-        String backYellow = "\u001B[43m";
         loadTransactions();
         boolean running = true;
 
         while (running) {
-            System.out.println(YELLOW + "Welcome to our TransactionApp!  ( 'u' )" + RESET);
+            System.out.println(YELLOW + "Welcome to our TransactionApp! " + YELLOW_BOLD + "( 'u' )" + RESET);
+            Thread.sleep(1100);
             System.out.println(BLUE + "Choose an option:" + RESET);
-            System.out.println(GREEN + "A) Add Deposit" + RESET);
-            System.out.println(RED + "P) Make Payment (Debit)" + RESET);
+            Thread.sleep(800);
+            System.out.println(GREEN + "A) Add " + GREEN_BOLD + "Deposit" + RESET);
+            System.out.println(RED + "P) Make " + RED_BOLD + "Payment " + BLACK_UNDERLINED + "(Debit)" + RESET);
             System.out.println("L) Ledger");
             System.out.println("X) Exit");
 
@@ -77,7 +82,7 @@ ArrayList transaction = transactionReader.toString
 * ArrayList<String>(vendor) = transaction(3);  <---- this makes an array for the vendor*/
         String line;
         try {
-            FileReader fileReader = new FileReader("transactions.csv");
+            FileReader fileReader = new FileReader(FILE_NAME);
             BufferedReader br = new BufferedReader(fileReader);
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("\\|");
@@ -411,11 +416,5 @@ ArrayList transaction = transactionReader.toString
         }
     }
 
-   /* public static String Color(){
-        String RESET = "\u001B[0m";
-        String RED = "\u001B[31m";
-        String GREEN = "\u001B[32m";
-        String YELLOW = "\u001B[33m";
-        String BLUE = "\u001B[44m";
-    }*/
+
 }
