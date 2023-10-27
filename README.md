@@ -5,7 +5,7 @@
     With this program you can track the deposits and payments of money you make while also keeping 
     track of when it happened.
 ### Main Menu
-![Animation.gif](screenshots%2FAnimation.gif)
+![menu.gif](screenshots%2Fmenu.gif)
 ### AddDeposit
 ![addDeposit.jpg](screenshots%2FaddDeposit.jpg)
 ### AddPayment
@@ -23,7 +23,6 @@
 
 ## Special Feature gif
 ![loading.gif](screenshots%2Floading.gif)
-![Animation2.gif](screenshots%2FAnimation2.gif)
 ## Setup
 - In order to run this program on your computer, you will need IntelliJ and GitBash on your computer.
 - Then clone the repository: git clone https://github.com/OnionWithLayers/financial-tracker.git cd financial-tracker
